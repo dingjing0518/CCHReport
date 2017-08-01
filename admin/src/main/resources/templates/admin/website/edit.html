@@ -1,0 +1,98 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width,  initial-scale=1.0, user-scalable=0, minimum-scale=1.0,  maximum-scale=1.0" />
+<title>网站数据</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap-override.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/jquery-ui-1.10.3.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/jquery-ui.theme.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/base.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/template.css}" />
+<script type="text/javascript" th:src="@{/lib/jquery-1.8.3.min.js}"></script>
+<script type="text/javascript" th:src="@{/lib/jquery-ui-1.10.3.min.js}"></script>
+<script type="text/javascript" th:src="@{/lib/jquery.validate.min.js}"></script>
+<script type="text/javascript" th:src="@{/lib/validate.js}"></script>
+<script type="text/javascript" th:src="@{/lib/datepicker-zh-CN.js}"></script>
+<script type="text/javascript" th:src="@{/lib/template.js}"></script>
+<script type="text/javascript" th:src="@{/lib/fileUpload.js}"></script>
+<script type="text/javascript" th:src="@{/lib/global.js}"></script>
+<script type="text/javascript" th:src="@{/js/website/create.js}"></script>
+</head>
+
+<body>
+	<div class="header clearfix">
+		<div th:replace="admin/layout/header::header"></div>
+	</div>
+	<div class="mainwrapper clearfix">
+		<div th:replace="admin/layout/menu::menu"></div>
+
+		<div class="mainpanel">
+			<div class="member-jfe-wrap container">
+				<div class="hd">
+					<div th:class="${message.status}" th:text="${message.message}" th:if="${message!=null}"></div>
+				</div>
+				<div class="show-msg">
+					<form class="form-horizontal pt50" id="form" th:attr="data-id=${websiteData.id}" 
+						th:object="${websiteData}" th:method="put">
+						<div class="form-group">
+							<label class="col-md-4 control-label required">网页名称：</label>
+							<div class="col-md-3">
+								<select class="form-control" th:field="*{siteName}">
+									<option value="">--请选择--</option>
+									<option value="0">主页</option>
+									<option value="1">品牌页</option>
+									<option value="2">会员页</option>
+									<option value="3">活动页</option>
+									<option value="4">关于我们页</option>
+								</select>
+							</div>
+							<p class="error" th:each="err : ${#fields.errors('siteName')}"
+								th:text="${err}"></p>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label required">网页点击数：</label>
+							<div class="col-md-3">
+								<input type="text" class="form-control" th:field="*{siteNumber}" />
+							</div>
+							<p class="error" th:each="err : ${#fields.errors('siteNumber')}"
+								th:text="${err}"></p>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label">访问时间：</label>
+							<div class="col-md-3">
+								<input class="form-control datepicker" placeholder=""
+									type="text" th:field="*{browseTime}" />
+							</div>
+							<p class="error" th:each="err : ${#fields.errors('browseTime')}"
+								th:text="${err}"></p>
+						</div>
+						<div class="group-ft col-xs-offset-4 mt50">
+							<a th:href="@{/admin/website}" class="btn btn-default ml-40">取消</a>
+							<input type="submit" class="btn btn-success ml-40" value="提交" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="alert" th:if="${status}!=null" th:class="${status.status}">
+		<div class="success-modal">
+			<div class="show-msg">
+				<div class="alert alert-success" role="alert"
+					th:text="${status.message}">数据录入成功</div>
+				<div class="success-bg">
+					<img th:src="@{/img/icon-success.jpg}" />
+				</div>
+			</div>
+		</div>
+		<div class="fixed"></div>
+	</div>
+</body>
+</html>

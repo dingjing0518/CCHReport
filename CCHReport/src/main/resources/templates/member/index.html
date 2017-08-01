@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>会员</title>
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<meta name="viewport" content="width = device-width,user-scalable=no" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/default.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/screen.css}" />
+<link th:href="@{/css/mobile.css}" rel="stylesheet"
+	media="screen and (max-width:700px)" />
+<link th:href="@{/images/logo.ico}" type="image/x-icon"
+	rel="shortcut icon" />
+<link rel="Bookmark" th:href="@{/images/logo.ico}" />
+<script th:src="@{/js/jquery-1.8.3.min.js}"></script>
+<script th:src="@{/js/scrollbar.js}"></script>
+<script th:src="@{/js/base.js}"></script>
+<!--[if lt IE 9]>
+    <link href="css/ie8.css" rel="stylesheet">
+	<![endif]-->
+</head>
+<body class="member">
+	<div th:replace="include/header::header-member"></div>
+
+	<div class="wrap">
+		<div class="banner">
+			<img th:src="${member.coverImg}" />
+		</div>
+	</div>
+	<div class="moudle-wrap member-wrap">
+		<div class="moudle-hd">
+			<h2>会员介绍</h2>
+			<div class="line"></div>
+			<h6>TERMS AND CONDITIONS</h6>
+		</div>
+		<div class="member-msg clearfix">
+			<div class="fl">
+				<img th:src="@{/images/m-code.jpg}" width="100%" />
+			</div>
+			<div class="fr">
+				<h3>
+					<strong>加入太茂VIP会员</strong>
+				</h3>
+				<p th:utext="${member.introduction}">
+					成为金桥太茂商业广场会员，凭借微信会员卡均可尊享由金桥太茂商业广场提供的精彩活动及专项礼遇，本会员尊享旨在回馈会员，仅对金桥太茂会员开放。<br />
+					金桥太茂不定期将举行积分换礼或主题积分换礼，请关注商场内告示、官方微信等公告。金桥太茂根据会员的积分记录不定期邀请会员优先参加主题活动、会员活动，优先享受特殊礼遇。
+				</p>
+			</div>
+		</div>
+		<div class="moudle-hd">
+			<h2>注册流程</h2>
+			<div class="line"></div>
+			<h6>HOW TO REGISTER</h6>
+		</div>
+		<div class="member-zclc clearfix">
+			<dl>
+				<dt>
+					<img th:src="@{/images/m-s1.png}" />
+				</dt>
+				<dd>1、扫一扫关注金桥太茂微信公众号</dd>
+			</dl>
+			<dl>
+				<dt>
+					<img th:src="@{/images/m-s2.png}" />
+				</dt>
+				<dd>2、点击“Tai.Club”选择我的会员卡</dd>
+			</dl>
+			<dl>
+				<dt>
+					<img th:src="@{/images/m-s3.png}" />
+				</dt>
+				<dd>3、点击”会员注册“，填写注册信息</dd>
+			</dl>
+		</div>
+		<div class="moudle-hd">
+			<h2>会员章程</h2>
+			<div class="line"></div>
+			<h6>MEMBER'S ARTICLES OF ASSOCIATION</h6>
+		</div>
+		<div class="hyzc">
+			<img th:src="${member.memberRightsImg}" width="100%" />
+		</div>
+		<div class="hyzc-txt" th:utext="${member.memberRightsContent}">
+
+		</div>
+
+	</div>
+
+
+	<div th:replace="include/footer::footer-content"></div>
+
+	<div class="getTop"></div>
+	<script>
+		$(function() {
+			$('.hyzc-txt').click(function() {
+				$(this).find('p').css('height', 'auto')
+			})
+		})
+	</script>
+</body>
+</html>

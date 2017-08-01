@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<link type="image/x-icon" rel="shortcut icon"
+	th:href="@{/images/logo.ico}" />
+<link rel="Bookmark" th:href="@{/images/logo.ico}" />
+<!--[if lt IE 9]>
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7,chrome=1">
+		<![endif]-->
+<!--<meta name="viewport" content="width=device-width, initial-scale=1">
+		-->
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<!-- Bootstrap -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/non-responsive.min.css}" />
+<link rel="stylesheet" th:href="@{/css/common.css}" />
+<link rel="stylesheet" th:href="@{/css/swiper.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/jq.css}" />
+<link rel="stylesheet" th:href="@{/css/wap.css}" />
+<link rel="stylesheet" media="screen and (max-width:700px)"
+	th:href="@{/css/moblie.css}" />
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/swiper.jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/script.js}"></script>
+<title>金桥太茂官方网站</title>
+</head>
+
+<body>
+	<header th:replace="include/header::header-activity"></header>
+	<div class="contain mt110 sitecontent transform">
+		<div class="act_box hoverscale noscale clearfix">
+			<div class="act_lf">
+				<ul>
+					<li class="new activity">
+						<!--<span></span>
+							<img src="img/last1.png" alt="" />
+							<div class="text-bottom">
+								<p class="tb-t">太茂君邀您免费吃大餐</p>
+								<p class="tb-d">2016.9.12-2016.9.16</p>
+							</div>-->
+						<div class="swiper-container swiper-container1">
+							<div class="swiper-wrapper">
+								<div class="swiper-slide"
+									th:each="leftActivitySlide:${leftActivitySlides}">
+									<img th:src="${leftActivitySlide.coverImg}" alt="" />
+									<!--
+                                        <div class="text-bottom">
+                                            <p class="tb-t">太茂君邀您免费吃大餐</p>
+                                            <p class="tb-d"></p>
+                                        </div>
+                                        -->
+								</div>
+							</div>
+							<a onclick="mySwiper1.slidePrev()" class="plation left"> <i
+								class="iconfont">&#xe603;</i>
+							</a> <a onclick="mySwiper1.slideNext()" class="plation right"> <i
+								class="iconfont">&#xe604;</i>
+							</a>
+						</div>
+					</li>
+					<!--<li class="new activity">
+							<span></span>
+							<img src="img/a9.png" alt="" />
+							<div class="text-bottom">
+								<p class="tb-t">运动会</p>
+								<p class="tb-d">不知道写什么</p>
+							</div>
+						</li>
+						<li class="activity">
+							<span></span>
+							<img src="img/a10.png" alt="" />
+							<div class="text-bottom">
+								<p class="tb-t">圣诞节</p>
+								<p class="tb-d">不知道写什么</p>
+							</div>
+						</li>
+						<li class="activity">
+							<span></span>
+							<img src="img/a13.png" alt="" />
+							<div class="text-bottom">
+								<p class="tb-t">睦邻节</p>
+								<p class="tb-d">不知道写什么</p>
+							</div>
+						</li>
+                        <li class="activity">
+							<span></span>
+							<img src="img/actiy-txt.png" alt="" />
+						</li>
+						<li class="new activity">
+							<span></span>
+							<img src="img/a11.png" alt="" />
+							<div class="text-bottom">
+								<p class="tb-t">乐跑节</p>
+								<p class="tb-d">不知道写什么</p>
+							</div>
+						</li>-->
+					<li class="activity actiy-txt"><span></span> <!--<img src="img/actiy-txt.png" alt="" class="pc"/>
+                            <img src="img/small-txt.png" class="moblie">-->
+						<h4 th:text="${activity.activityTitle}">开业活动：</h4>
+						<p th:utext="${activity.activityContent}">
+							海洋球狂欢PARTY<br />金桥太茂全球美食品鉴会<br />太茂君邀您吃免费大餐<br />多媒体互动 亲子乐园
+						</p></li>
+					<li class="activity"><span></span> <img
+						th:src="${activity.PmiddleImg}" alt="" class="pc" /> <img
+						th:src="${activity.MmiddleImg}" alt="" class="moblie" /></li>
+				</ul>
+			</div>
+			<div class="act_rt">
+				<div>
+					<!--MOMENTS<br />OF ACTIVITIES <br /><span>精彩活动瞬间</span>-->
+					<img th:src="${activity.rightImg}" />
+				</div>
+				<div class="swiper-container swiper-container2">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide"
+							th:each="rightActivitySlide:${rightActivitySlides}">
+							<img th:src="${rightActivitySlide.coverImg}" />
+						</div>
+						<!-- 
+							<div class="swiper-slide">
+								<img src="img/a10.jpg" />
+							</div>
+							<div class="swiper-slide">
+								<img src="img/a11.jpg" />
+							</div>
+							 -->
+					</div>
+					<a onclick="mySwiper2.slidePrev()" class="plation hotplation sw_lf">
+						<i class="iconfont">&#xe603;</i>
+					</a> <a onclick="mySwiper2.slideNext()"
+						class="plation  hotplation sw_rt"> <i class="iconfont">&#xe604;</i>
+					</a>
+				</div>
+
+			</div>
+		</div>
+		<div style="clear: both;"></div>
+	</div>
+	<div th:replace="include/footer::footer-activity"></div>	
+</body>
+<script type="text/javascript" th:src="@{/js/activity/index.js}"></script>
+</html>

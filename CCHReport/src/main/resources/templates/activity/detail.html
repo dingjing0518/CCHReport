@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>活动详情</title>
+	<meta name="description" content=""/>
+	<meta name="keywords" content=""/>
+	<meta name="viewport" content="width = device-width,user-scalable=no" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/default.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/screen.css}" />
+	<link th:href="@{/css/mobile.css}" rel="stylesheet"
+			media="screen and (max-width:700px)" />
+	<link th:href="@{/images/logo.ico}" type="image/x-icon"
+		rel="shortcut icon" />
+	<link rel="Bookmark" th:href="@{/images/logo.ico}" />
+<script th:src="@{/js/jquery-1.8.3.min.js}"></script>
+	<script th:src="@{/js/jquery.SuperSlide.js}"></script>
+	<script th:src="@{/js/scrollbar.js}"></script>
+	<script th:src="@{/js/base.js}"></script>
+	<!--[if lt IE 9]>
+	    <link href="css/ie8.css" rel="stylesheet">
+		<![endif]-->
+</head>
+<body class="activities">
+	<div th:replace="include/header::header-activity"></div>
+	
+	<div class="wrap">
+		<div class="banner">
+			<img th:src="${activity.activityDetail.coverImg}" width="100%" />
+		</div>
+		<div class="crumb">
+			<a th:href="@{/activities/}">活动</a> / <a class="this_detail" th:text="${activity.name}">太茂社区运动会</a>
+		</div>
+		<div class="detail-box clearfix">
+			<div class="fl detail-smallpic">
+				<img th:src="${activity.activityDetail.leftImg}" width="100%" />
+			</div>
+			<div class="fl detail-msg">
+				<h2 th:text="${activity.name}">太茂社区运动会</h2>
+				<div class="sctxt" th:utext="${activity.activityDetail.content}">
+					<p>运动会不仅是个人才能展示的舞台，更是集体精神冶炼的熔炉；不仅是拼搏进取精神的迸发。
+					运动会不仅是个人才能展示的舞台，更是集体精神冶炼的熔炉；不仅是拼搏进取精神的迸发。</p>
+				</div>
+				<div id="scrollbar1">
+					<div class="scrollbar">
+						<div class="track">
+							<div class="thumb">
+								<div class="end"></div>
+							</div>
+						</div>
+					</div>
+					<div class="viewport">
+						<div class="overview" th:utext="${activity.activityDetail.content}">
+							<p>运动会不仅是个人才能展示的舞台，更是集体精神冶炼的熔炉；不仅是拼搏进取精神的迸发。</p>
+						</div>
+					</div>
+				</div>
+				<div class="picScroll-left pc-pic">
+					<div class="hd">
+						<a class="next"></a> <a class="prev"></a>
+					</div>
+					<div class="bd">
+						<ul class="picList">
+							<li th:each="sidelight:${activity.activityDetail.sidelights}">
+								<div class="pic">
+									<a href=""><img th:src="${sidelight}" width="209"
+										height="131" /></a>
+								</div>
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="picScroll-left mobile-pic">
+		<div class="hd">
+			<a class="next"></a> <a class="prev"></a>
+		</div>
+		<div class="bd">
+			<ul class="picList">
+				<li th:each="sidelight:${activity.activityDetail.sidelights}">
+					<div class="pic">
+						<a href=""><img th:src="${sidelight}" /></a>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<div th:replace="include/footer::footer-content"></div>
+	
+	<div class="getTop"></div>
+	<script>
+		$('#scrollbar1').tinyscrollbar({
+			size : 200,
+			sizethumb : 50,
+		});
+		$(".pc-pic").slide({
+			mainCell : ".bd ul",
+			autoPage : true,
+			effect : "left",
+			autoPlay : false,
+			vis : 4,
+			trigger : "click",
+			pnLoop : false
+		});
+		$(".mobile-pic").slide({
+			mainCell : ".bd ul",
+			autoPage : true,
+			effect : "left",
+			autoPlay : false,
+			vis : 2,
+			trigger : "click",
+			pnLoop : false
+		});
+	</script>
+</body>
+</html>

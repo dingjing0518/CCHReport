@@ -1,0 +1,328 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width,  initial-scale=1.0, user-scalable=0, minimum-scale=1.0,  maximum-scale=1.0" />
+<title>网站数据</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap-override.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/jquery-ui-1.10.3.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/jquery-ui.theme.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/base.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/template.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/xcConfirm.css}" />
+<script th:src="@{/js/jquery-1.9.1.js}" type="text/javascript"
+	charset="utf-8"></script>
+<script th:src="@{/js/xcConfirm.js}" type="text/javascript"
+	charset="utf-8"></script>
+<script type="text/javascript" th:src="@{/lib/jquery-1.8.3.min.js}"></script>
+<script type="text/javascript" th:src="@{/lib/jquery-ui-1.10.3.min.js}"></script>
+<script type="text/javascript" th:src="@{/lib/jquery.validate.min.js}"></script>
+<script type="text/javascript" th:src="@{/lib/validate.js}"></script>
+<script type="text/javascript" th:src="@{/lib/datepicker-zh-CN.js}"></script>
+<script type="text/javascript" th:src="@{/lib/template.js}"></script>
+<script type="text/javascript" th:src="@{/lib/fileUpload.js}"></script>
+<script type="text/javascript" th:src="@{/lib/global.js}"></script>
+<script type="text/javascript" th:src="@{/js/website/create.js}"></script>
+<script type="text/javascript">
+	$(function() {
+		$('#tol_submit').click(
+				function() {
+					var market = $("#market_id").find("option:selected").val();
+					var browseTime = $("#browseTime1_id").val();
+					var siteName = $("#siteName_id").find("option:selected")
+							.val();
+					var siteName1 = $("#siteName1_id").find("option:selected")
+							.val();
+					var siteName2 = $("#siteName2_id").find("option:selected")
+							.val();
+					var siteName3 = $("#siteName3_id").find("option:selected")
+							.val();
+					var siteName4 = $("#siteName4_id").find("option:selected")
+							.val();
+					var siteNumber = $("#siteNumber_id").val();
+					var siteNumber1 = $("#siteNumber1_id").val();
+					var siteNumber2 = $("#siteNumber2_id").val();
+					var siteNumber3 = $("#siteNumber3_id").val();
+					var siteNumber4 = $("#siteNumber4_id").val();
+					var ok = true;
+					if (market == '') {
+						ok = false;
+					}
+					if (browseTime == '') {
+						ok = false;
+					}
+					if (siteNumber == '') {
+						ok = false;
+					}
+					if (siteNumber1 == '') {
+						ok = false;
+					}
+					if (siteNumber2 == '') {
+						ok = false;
+					}
+					if (siteNumber3 == '') {
+						ok = false;
+					}
+					if (siteNumber4 == '') {
+						ok = false;
+					}
+					if (ok) {
+						$.ajax({
+							type : "POST",
+							url : global.context + '/admin/website/save',
+							data : {
+								"market" : market,
+								"browseTime" : browseTime,
+								"siteName" : siteName,
+								"siteNumber" : siteNumber
+							},
+							dataType : "json",
+							success : function(result) {
+
+							}
+						});
+						$.ajax({
+							type : "POST",
+							url : global.context + '/admin/website/save1',
+							data : {
+								"market" : market,
+								"browseTime" : browseTime,
+								"siteName1" : siteName1,
+								"siteNumber1" : siteNumber1
+							},
+							dataType : "json",
+							success : function(result) {
+
+							}
+						});
+						$.ajax({
+							type : "POST",
+							url : global.context + '/admin/website/save2',
+							data : {
+								"market" : market,
+								"browseTime" : browseTime,
+								"siteName2" : siteName2,
+								"siteNumber2" : siteNumber2
+							},
+							dataType : "json",
+							success : function(result) {
+
+							}
+						});
+						$.ajax({
+							type : "POST",
+							url : global.context + '/admin/website/save3',
+							data : {
+								"market" : market,
+								"browseTime" : browseTime,
+								"siteName3" : siteName3,
+								"siteNumber3" : siteNumber3
+							},
+							dataType : "json",
+							success : function(result) {
+
+							}
+						});
+						$.ajax({
+							type : "POST",
+							url : global.context + '/admin/website/save4',
+							data : {
+								"market" : market,
+								"browseTime" : browseTime,
+								"siteName4" : siteName4,
+								"siteNumber4" : siteNumber4
+							},
+							dataType : "json",
+							success : function(result) {
+
+							}
+						});
+						window.wxc.xcConfirm("录入成功！",
+								window.wxc.xcConfirm.typeEnum.info);
+						var newbrowseTime = Date.parse(browseTime);
+						newbrowseTime = new Date(newbrowseTime);
+						newbrowseTime = newbrowseTime.setDate(newbrowseTime
+								.getDate() + 1);
+						newbrowseTime = new Date(newbrowseTime);
+						$("#browseTime1_id").val(
+								newbrowseTime.Format("yyyy-MM-dd"));
+						$("#siteNumber_id").val("");
+						$("#siteNumber1_id").val("");
+						$("#siteNumber2_id").val("");
+						$("#siteNumber3_id").val("");
+						$("#siteNumber4_id").val("");
+					} else {
+						window.wxc.xcConfirm("录入失败! ",
+								window.wxc.xcConfirm.typeEnum.info);
+					}
+				});
+		Date.prototype.Format = function(fmt) {
+			var o = {
+				"M+" : this.getMonth() + 1, //月份
+				"d+" : this.getDate(), //日
+				"h+" : this.getHours(), //小时
+				"m+" : this.getMinutes(), //分
+				"s+" : this.getSeconds(), //秒
+				"q+" : Math.floor((this.getMonth() + 3) / 3), //季度
+				"S" : this.getMilliseconds()
+			//毫秒
+			};
+			if (/(y+)/.test(fmt))
+				fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "")
+						.substr(4 - RegExp.$1.length));
+			for ( var k in o)
+				if (new RegExp("(" + k + ")").test(fmt))
+					fmt = fmt.replace(RegExp.$1,
+							(RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k])
+									.substr(("" + o[k]).length)));
+			return fmt;
+		}
+	});
+</script>
+</head>
+
+<body style="overflow:auto;">
+	<div class="header clearfix">
+		<div th:replace="admin/layout/header::header"></div>
+	</div>
+	<div class="mainwrapper clearfix">
+		<div th:replace="admin/layout/menu::menu"></div>
+
+		<div class="mainpanel">
+			<div class="member-jfe-wrap container">
+				<div class="hd">
+					<div class="bar using-bar">网站数据录入</div>
+				</div>
+				<div th:class="${message.status}" th:text="${message.message}"
+					th:if="${message!=null}"></div>
+				<div class="show-msg">
+					<form class="form-inline text-center content">
+						<div class="form-group">
+							<label class="required">商场名称：</label> <select
+								class="form-control" id="market_id" disabled="disabled">
+								<option value="">--请选择--</option>
+								<option value="0" selected="selected">金桥太茂</option>
+								<option value="1">南翔太茂</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="required">访问时间：</label> <input
+								class="form-control datepicker" placeholder="" type="text"
+								id="browseTime1_id" />
+						</div>
+					</form>
+					<form class="form-inline text-center content">
+						<div class="form-group">
+							<label class="required">网页名称：</label> <select
+								class="form-control" id="siteName_id" disabled="disabled">
+								<option value="">--请选择--</option>
+								<option value="0" selected="selected">主页</option>
+								<option value="1">品牌页</option>
+								<option value="2">会员页</option>
+								<option value="3">活动页</option>
+								<option value="4">关于我们页</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="required">网页点击数：</label> <input type="text"
+								id="siteNumber_id" class="form-control" placeholder="默认点击数为0" />
+						</div>
+					</form>
+					<form class="form-inline text-center content">
+						<div class="form-group">
+							<label class="required">网页名称：</label> <select
+								class="form-control" id="siteName1_id" disabled="disabled">
+								<option value="">--请选择--</option>
+								<option value="0">主页</option>
+								<option value="1" selected="selected">品牌页</option>
+								<option value="2">会员页</option>
+								<option value="3">活动页</option>
+								<option value="4">关于我们页</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="required">网页点击数：</label> <input type="text"
+								id="siteNumber1_id" class="form-control" placeholder="默认点击数为0" />
+						</div>
+					</form>
+					<form class="form-inline text-center content">
+						<div class="form-group">
+							<label class="required">网页名称：</label> <select
+								class="form-control" id="siteName2_id" disabled="disabled">
+								<option value="">--请选择--</option>
+								<option value="0">主页</option>
+								<option value="1">品牌页</option>
+								<option value="2" selected="selected">会员页</option>
+								<option value="3">活动页</option>
+								<option value="4">关于我们页</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="required">网页点击数：</label> <input type="text"
+								id="siteNumber2_id" class="form-control" placeholder="默认点击数为0" />
+						</div>
+					</form>
+					<form class="form-inline text-center content">
+						<div class="form-group">
+							<label class="required">网页名称：</label> <select
+								class="form-control" id="siteName3_id" disabled="disabled">
+								<option value="">--请选择--</option>
+								<option value="0">主页</option>
+								<option value="1">品牌页</option>
+								<option value="2">会员页</option>
+								<option value="3" selected="selected">活动页</option>
+								<option value="4">关于我们页</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="required">网页点击数：</label> <input type="text"
+								id="siteNumber3_id" class="form-control" placeholder="默认点击数为0" />
+						</div>
+					</form>
+					<form class="form-inline text-center content">
+						<div class="form-group">
+							<label class="required">网页名称：</label> <select
+								class="form-control" id="siteName4_id" disabled="disabled">
+								<option value="">--请选择--</option>
+								<option value="0">主页</option>
+								<option value="1">品牌页</option>
+								<option value="2">会员页</option>
+								<option value="3">活动页</option>
+								<option value="4" selected="selected">关于我们页</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="required">网页点击数：</label> <input type="text"
+								id="siteNumber4_id" class="form-control" placeholder="默认点击数为0" />
+						</div>
+					</form>
+					<div class="group-ft col-xs-offset-4"
+						style="position: relative; left: 7%">
+						<a th:href="@{/admin/website}" class="btn btn-default ml-40">取消</a>
+						<input id="tol_submit" type="submit" class="btn btn-success ml-40"
+							value="提交" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="alert" th:if="${status}!=null" th:class="${status.status}">
+		<div class="success-modal">
+			<div class="show-msg">
+				<div class="alert alert-success" role="alert"
+					th:text="${status.message}">数据录入成功</div>
+				<div class="success-bg">
+					<img th:src="@{/img/icon-success.jpg}" />
+				</div>
+			</div>
+		</div>
+		<div class="fixed"></div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <title>会员数据</title>
+
+    <!-- 引入 ECharts 文件 -->
+    <link rel="stylesheet" type="text/css" href="//cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css">
+    <script th:src="@{/js/echart.min.js}"></script>
+    <script th:src="@{/js/macarons.js}"></script>
+
+</head>
+<body>
+<div data-am-widget="tabs" class="am-tabs am-tabs-default">
+    <ul class="am-tabs-nav am-cf">
+        <li class="am-active"><a href="[data-tab-panel-0]">会员</a></li>
+        <li class=""><a href="[data-tab-panel-1]">网站</a></li>
+        <li class=""><a href="[data-tab-panel-2]">粉丝</a></li>
+        <li class=""><a href="[data-tab-panel-3]">菜单</a></li>
+        <li class=""><a href="[data-tab-panel-4]">来源</a></li>
+        <li class=""><a href="[data-tab-panel-5]">汇总</a></li>
+    </ul>
+    <div class="am-tabs-bd">
+        <div data-tab-panel-0 class="am-tab-panel am-active">
+            <div id="main0" style="width: 100%;height:450px;margin-top:20px;"></div>
+        </div>
+        <div data-tab-panel-1 class="am-tab-panel ">
+            <div id="main1" style="width: 100%;height:450px;margin-top:20px;"></div>
+        </div>
+        <div data-tab-panel-2 class="am-tab-panel ">
+            <div id="main2" style="width: 100%;height:450px;margin-top:20px;"></div>
+        </div>
+        <div data-tab-panel-3 class="am-tab-panel ">
+            <h2 class=" am-text-primary " style="text-align: center">菜单数据</h2>
+            <div class="am-alert am-alert-danger" id="my-alert" style="display: none">
+                <p>开始日期应小于结束日期！</p>
+            </div>
+            <div class="am-g">
+                <div class="am-u-sm-6">
+                    <button type="button" class="am-btn am-btn-secondary am-margin-right am-btn-sm am-btn-block"
+                            id="my-start">开始日期
+                    </button>
+                    <span id="my-startDate"></span>
+                </div>
+                <div class="am-u-sm-6">
+                    <button type="button" class="am-btn am-btn-secondary am-margin-right am-btn-sm am-btn-block"
+                            id="my-end">结束日期
+                    </button>
+                    <span id="my-endDate"></span>
+                </div>
+            </div>
+            <div id="main3" style="width: 100%;height:450px;margin-top:20px;"></div>
+        </div>
+        <div data-tab-panel-4 class="am-tab-panel ">
+
+            <div id="main4" style="width: 100%;height:450px;margin-top:20px;"></div>
+        </div>
+        <div data-tab-panel-5 class="am-tab-panel ">
+            <div id="main5" style="width: 100%;height:450px;margin-top:20px;"></div>
+        </div>
+    </div>
+</div>
+
+<script src="//libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+
+
+<script>
+    var myCharts = [];
+    var apilist = [
+        global.context + '/memberdataReport/data',
+        global.context + '/websitedataReport/data',
+        global.context + '/fandataReport/data',
+        global.context + '/menudataReport/data',
+        global.context + '/fandataSourceReport/data',
+        global.context + '/summaryReport/data'
+    ];
+
+    $(function () {
+
+        $(".am-tabs-bd .am-tab-panel").each(function (k) {
+                    var tit = $(".am-tabs-nav li:eq(" + k + ")").children('a').text();
+                    if (k != 3) {
+
+                        var str = '<h2 class=" am-text-primary "style="text-align: center">' + tit + '数据</h2>' +
+                                '<form class="am-form am-g"><div class="am-form-select am-u-sm-6">' +
+                                '<select onchange="querydata(' + k + ')" class="year-sl' + k + '" data-am-selected="{ btnWidth: \'100%\',btnSize: \'sm\', btnStyle: \'secondary\'}">' +
+                                '<option value="0" selected>选择年份</option>' +
+                                '<option value="2015" >2015年</option>' +
+                                '<option value="2016" >2016年</option>' +
+                                '</select></div>' +
+                                '<div class="am-form-select am-u-sm-6" >' +
+                                '<select onchange="querydata(' + k + ')" class="month-sl' + k + '" data-am-selected="{btnWidth: \'100%\',btnSize: \'sm\', btnStyle: \'secondary\'}">' +
+                                '<option value="-1" selected>选择月份</option>' +
+                                '<option value="1" >1月</option>' +
+                                '<option value="2" >2月</option>' +
+                                '<option value="3" >3月</option>' +
+                                '<option value="4" >4月</option>' +
+                                '<option value="5" >5月</option>' +
+                                '<option value="6" >6月</option>' +
+                                '<option value="7" >7月</option>' +
+                                '<option value="8" >8月</option>' +
+                                '<option value="9" >9月</option>' +
+                                '<option value="10" >10月</option>' +
+                                '<option value="11" >11月</option>' +
+                                '<option value="12" >12月</option>' +
+                                '</select></div>';
+
+
+                        $(this).prepend(str);
+                    }
+                    if (apilist[k] != "") {
+                        myCharts[k] = echarts.init(document.getElementById('main' + k), 'macarons');
+                        var year = $(".year-sl" + k).val();
+                        var month = $(".month-sl" + k).val();
+                        qapi(year, month, k);
+                    }
+                }
+        );
+    });
+
+    function querydata(k) {
+        var year = $(".year-sl" + k).val();
+        var month = $(".month-sl" + k).val();
+        qapi(year, month, k);
+    }
+</script>
+
+<script src="//cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
+
+<script>
+
+    Date.prototype.Format = function (fmt) {
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+
+    $(function () {
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth();
+
+        var startDate = new Date(year, month, 1);
+        var endDate = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
+
+        $("#my-startDate").text(startDate.Format("yyyy-MM-dd"));
+
+        $("#my-endDate").text(endDate.Format("yyyy-MM-dd"));
+
+
+        var $alert = $('#my-alert');
+        $('#my-start').datepicker().on('changeDate.datepicker.amui', function (event) {
+            if (event.date.valueOf() > endDate.valueOf()) {
+                $alert.find('p').text('开始日期应小于结束日期！').end().show();
+            } else {
+                $alert.hide();
+                startDate = new Date(event.date);
+                $('#my-startDate').text($('#my-start').data('date'));
+                qapi(year, month, 3);
+            }
+            $(this).datepicker('close');
+        });
+
+        $('#my-end').datepicker().on('changeDate.datepicker.amui', function (event) {
+            if (event.date.valueOf() < startDate.valueOf()) {
+
+                $alert.find('p').text('结束日期应大于开始日期！').end().show();
+            } else {
+                $alert.hide();
+                endDate = new Date(event.date);
+                $('#my-endDate').text($('#my-end').data('date'));
+                qapi(year, month, 3);
+            }
+            $(this).datepicker('close');
+        });
+
+    });
+
+
+    function qapi(year, month, k) {
+//      $.AMUI.progress.start();
+        if (k == 3) {
+            var url = apilist[k] + "?startTime=" + $('#my-startDate').text() + "&endTime=" + $('#my-endDate').text();
+        } else {
+            var url = apilist[k] + "?year=" + year + "&month=" + month;
+        }
+        $.getJSON(url, function (result) {
+            console.log(result);
+            myCharts[k].setOption(result);
+//            $.AMUI.progress.done();
+        })
+
+    }
+</script>
+
+</body>
+</html>

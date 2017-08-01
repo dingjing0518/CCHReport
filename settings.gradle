@@ -1,0 +1,4 @@
+include "repository","model","CCHReport","admin"
+rootProject.children.each {
+	it.buildFileName = it.name + '.gradle'
+}

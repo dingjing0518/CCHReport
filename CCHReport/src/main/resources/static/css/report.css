@@ -1,0 +1,53 @@
+.am-btn-secondary{
+	color:#999;
+	background-color:#fff;
+	border-color:#dedede;
+}
+.am-icon-caret-down:before{
+	color:#FF4C6A;
+}
+.am-tabs-default .am-tabs-nav{
+	background-color:#fff;
+}
+.am-text-primary{
+	color:#FF4C6A;
+}
+.am-tabs-default .am-tabs-nav>.am-active a{
+	color:#333;
+	background-color:#fff;
+	font-weight:bold;
+}
+.am-btn-secondary.am-active, .am-btn-secondary:active, .am-dropdown.am-active .am-btn-secondary.am-dropdown-toggle{
+	background-color:#fff;
+}
+.am-btn-secondary.am-active, .am-btn-secondary:active, .am-btn-secondary:focus, .am-btn-secondary:hover, .am-dropdown.am-active .am-btn-secondary.am-dropdown-toggle{
+	color:#333;
+	border-color:#FF4C6A;
+}
+.am-btn-secondary:focus, .am-btn-secondary:hover{
+	border-color:#fff;
+	background-color:#fff;
+}
+.am-selected-list li.am-checked .am-icon-check{
+	color:#FF4C6A;
+}
+.am-datepicker tr.am-datepicker-header{
+	background:#FF4C6A;
+}
+.am-datepicker .am-datepicker-dow{
+	color:#FF4C6A;
+}
+.am-datepicker td.am-datepicker-new, .am-datepicker td.am-datepicker-old{
+	color:#FF4C6A;
+}
+.am-datepicker td.am-active, .am-datepicker td.am-active:hover{
+	color:#FF4C6A;
+}
+#my-startDate{
+	text-align: center;
+    display: block;
+}
+#my-endDate{
+	text-align: center;
+    display: block;
+}

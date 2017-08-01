@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>活动列表</title>
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<meta name="viewport" content="width = device-width,user-scalable=no" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/default.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/screen.css}" />
+<link th:href="@{/css/mobile.css}" rel="stylesheet"
+	media="screen and (max-width:700px)" />
+<link th:href="@{/images/logo.ico}"
+   type="image/x-icon" rel="shortcut icon"/>
+<link rel="Bookmark" th:href="@{/images/logo.ico}" />
+<script th:src="@{/js/jquery-1.8.3.min.js}"></script>
+<script th:src="@{/js/jquery.SuperSlide.js}"></script>
+<script th:src="@{/js/base.js}"></script>
+<script th:src="@{/js/activity/index.js}"></script>
+<script type="text/javascript" th:src="@{/js/template.js}"></script>
+<script type="text/javascript" th:src="@{/js/jsRender.js}"></script>
+<script type="text/javascript" th:src="@{/js/page.js}"></script>
+<script id="detail" type="text/x-jsrender">
+	{{for content}}
+	<a href="/jqHome/activities/{{>id}}">
+		<div class="topceng"></div>
+		<div class="event-pic">
+			<img src="{{>coverImg}}" />
+		</div>
+		<div class="event-info">
+			<div class="event-name">{{>name}}</div>
+			<div class="event-date">{{>endTime}}</div>
+		</div>
+	</a> 
+	{{/for}}
+</script>
+</head>
+<body class="activities">
+	
+	<div th:replace="include/header::header-activity"></div>
+	
+	<div class="wrap">
+	
+		<div id="slideBox" class="activity slideBox" style="overflow: hidden">
+			<div class="bd">
+				<ul>
+					<li th:each="slide:${slides}">
+						<a th:href="${slide.url}"><img th:src="${slide.coverImg}" width="100%" /></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="event-select">
+			<input type="button" value="最新活动" id="act1" class="active"/>
+			<input type="button" value="历史活动" id="act2"/>
+			<input type="hidden" id="listType" value="1"/>
+		</div>
+		
+		<div class="scale-box event-list clearfix" >
+			<a th:each="activity:${activitys}" th:href="@{/activities/__${activity.id}__}">
+				<div class="topceng"></div>
+				<div class="event-pic">
+					<img th:src="${activity.coverImg}" />
+				</div>
+				<div class="event-info">
+					<div class="event-name" th:text="${activity.name}">小笼包文化</div>
+					<div class="event-date" th:text="${activity.endTime} ? ${#dates.format(activity.endTime, 'yyyy-MM-dd')}">2015.10</div>
+				</div>
+			</a> 
+		</div>
+		<div class="pagination-wrap">
+			<div th:replace="include/page::page"></div>
+		</div>
+	</div>
+	
+	<div th:replace="include/footer::footer-content"></div>
+	
+</body>
+<script type="text/javascript">
+	jQuery(".slideBox").slide({
+		mainCell : ".bd ul",
+		effect : 'fold',
+		delayTime : 3000,
+		autoPlay : true,
+		mouseOverStop : false
+	});
+	
+	
+</script>
+</html>
